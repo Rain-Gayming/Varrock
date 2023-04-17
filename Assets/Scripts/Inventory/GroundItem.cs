@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class GroundItem : MonoBehaviour
 {
+    public SpriteRenderer sr;
     public Item item;
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.tag == "Player"){
-            Inventory.instance.CheckIfCanAddItem(gameObject, item);
+
+    private void Update() {
+        if(sr.sprite != item.item.itemIcon){
+            sr.sprite = item.item.itemIcon;
         }
+    }
+    private void OnMouseDown() {
+        Inventory.instance.CheckIfCanAddItem(gameObject, item);
     }
 }

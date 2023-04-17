@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Loot/CraftingRecipe",fileName = "CR_")]
 public class CraftingRecipe : ScriptableObject
 {
     public List<Item> itemsRequired;

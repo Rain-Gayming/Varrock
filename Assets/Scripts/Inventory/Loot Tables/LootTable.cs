@@ -2,17 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LootTable : MonoBehaviour
+[CreateAssetMenu(menuName = "Loot/LootTable")]
+public class LootTable : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<Loot> loot;
+    public int totalWeight;
 
-    // Update is called once per frame
-    void Update()
+    private bool isInitialized = false;
+
+    [ContextMenu("Initialize")]
+    public void Initialize()
     {
-        
+        totalWeight = 0;
+        if(!isInitialized){
+            for (int i = 0; i < loot.Count; i++)
+            {
+                totalWeight += loot[i].weight;
+                if(i >= loot.Count){
+                    isInitialized = true;
+                }
+            }
+        }
+    }   
+
+    public Loot GetRandomItem()
+    {
+        Initialize();
+
+        int diceRoll = Random.Range(0, totalWeight);
+        Debug.Log(diceRoll);
+
+        foreach(var item in loot)
+        {
+            if(item.weight >= diceRoll){
+                item.item.amount = Random.Range(item.minimumAmount, item.maximumAmount);
+                Debug.Log("Giving item of: " + item.item.item.itemName + " with amount of: " + item.item.amount); 
+                return item;
+            }
+            diceRoll -= item.weight;
+        }
+        throw new System.Exception("Reward Generation Failed");
     }
 }

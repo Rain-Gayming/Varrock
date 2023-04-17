@@ -11,6 +11,10 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Item preItem;
     public bool hovered;
 
+    [Header("Item Specific")]
+    public bool anyItem;
+    public EItemType itemType;
+
     [Header("Display Info")]
     public Image hoverImage;
     public TMP_Text amountText;

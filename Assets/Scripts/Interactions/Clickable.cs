@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Clickable : MonoBehaviour
 {
-    public void OnMouseClick()
+    public void OnMouseDown()
     {
         Interact();
     }

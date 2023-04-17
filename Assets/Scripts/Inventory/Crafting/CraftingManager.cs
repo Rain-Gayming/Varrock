@@ -53,28 +53,15 @@ public class CraftingManager : MonoBehaviour
 
     public void CraftRecipe()
     {
-        int itemsChecked = 0;
         int boolsChecked = 0;
         for (int i = 0; i < selectedRecipe.itemsRequired.Count; i++)
         {
-            if(itemsChecked >= selectedRecipe.itemsRequired.Count){
-                for (int b = 0; b < hasItems.Count; b++)
-                {
-                    if(hasItems[b] == true){
-                        boolsChecked++;
-                    }
-                }
-            }else{
-                itemsChecked++;
-            }
-            
             CheckIfInventoryHasItem(selectedRecipe.itemsRequired[i].item, selectedRecipe.itemsRequired[i].amount, i);
-        }
-
-        if(boolsChecked >= hasItems.Count){
-            Inventory.instance.CheckIfCanAddItem(selectedRecipe.returnItem);
-        }else{
-            Debug.Log("Inventory Didnt Have Every Item");
+            if(boolsChecked >= hasItems.Count){
+                Inventory.instance.CheckIfCanAddItem(selectedRecipe.returnItem);
+            }else{
+                Debug.Log("Inventory Didnt Have Every Item");
+            }
         }
     }
 
@@ -90,8 +77,9 @@ public class CraftingManager : MonoBehaviour
             }else{
                 itemsChecked++;
             }
-            if(itemsChecked >= Inventory.instance.itemSlots.Count){
+            if(itemsChecked == Inventory.instance.itemSlots.Count){
                 hasItems[currentBool] = false;
+                Debug.Log("Inventory doesnt have item: " + itemToCheck.itemName + " of amount: " + itemAmount.ToString());
             }
         }
     }

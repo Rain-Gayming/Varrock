@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51b3c2acb64d33042badd99f453de62d, type: 3}
-  m_Name: Item_Stone
+  m_Name: Item_Leggings
   m_EditorClassIdentifier: 
-  itemName: Stone
+  itemType: 4
+  itemName: Leather Boots
   itemDescription: 
-  itemIcon: {fileID: -475346791, guid: b5046a2e4cd21dc4988f21dbb869c447, type: 3}
-  stacks: 1
+  itemIcon: {fileID: -419493672, guid: b5046a2e4cd21dc4988f21dbb869c447, type: 3}
+  stacks: 0

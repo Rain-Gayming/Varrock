@@ -347,6 +347,8 @@ MonoBehaviour:
     item: {fileID: 0}
     amount: 0
   hovered: 0
+  anyItem: 1
+  itemType: 0
   hoverImage: {fileID: 7690509510335031304}
   amountText: {fileID: 7472616312054446243}
   itemIcon: {fileID: 6679131104311381938}
