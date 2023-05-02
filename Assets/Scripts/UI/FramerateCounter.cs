@@ -6,7 +6,7 @@ public class FramerateCounter : MonoBehaviour
     public static FramerateCounter instance;
     public float PollingTime = 0.5f;
     
-    public TextMeshProUGUI UIText;
+    public TMP_Text UIText;
 
     float currentDeltaTime = 0f;
     int currentFrameRate = 0;

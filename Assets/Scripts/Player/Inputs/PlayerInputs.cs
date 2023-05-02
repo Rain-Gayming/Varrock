@@ -298,6 +298,17 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""87604973-2e90-4bd6-b2eb-b55c2a333d27"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""24988280-074e-4d9b-aa81-c4e39c60fa4b"",
                     ""path"": ""<Keyboard>/v"",
                     ""interactions"": """",

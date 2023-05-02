@@ -11,6 +11,7 @@ public class CraftingManager : MonoBehaviour
     public List<CraftingRecipe> craftingRecipes;
     public TMP_Text recipeNameText;
     public TMP_Text descriptionText; 
+    bool checkForCraft;
     [Header("Slots")]
     public GameObject recipeSlot;
     public Transform recipeGrid;
@@ -39,7 +40,7 @@ public class CraftingManager : MonoBehaviour
             Destroy(destroyedSlot);
         }
         recipeNameText.text = recipeToUpdateTo.returnItem.item.itemName;
-        descriptionText.text = recipeToUpdateTo.returnItem.item.itemDescription;
+        descriptionText.text = recipeToUpdateTo.returnItem.item.itemInfo;
         for (int i = 0; i < recipeToUpdateTo.itemsRequired.Count; i++)
         {
             GameObject newSlot = Instantiate(recipeSlot);
@@ -52,35 +53,46 @@ public class CraftingManager : MonoBehaviour
     }
 
     public void CraftRecipe()
-    {
-        int boolsChecked = 0;
-        for (int i = 0; i < selectedRecipe.itemsRequired.Count; i++)
         {
-            CheckIfInventoryHasItem(selectedRecipe.itemsRequired[i].item, selectedRecipe.itemsRequired[i].amount, i);
-            if(boolsChecked >= hasItems.Count){
-                Inventory.instance.CheckIfCanAddItem(selectedRecipe.returnItem);
-            }else{
-                Debug.Log("Inventory Didnt Have Every Item");
+            for (int i = 0; i < selectedRecipe.itemsRequired.Count; i++)
+            {
+                StartCoroutine(CheckIfInventoryHasItem(selectedRecipe.itemsRequired[i]));
+            }
+        }
+
+        public IEnumerator CheckIfInventoryHasItem(Item itemToCheck)
+        {
+            Debug.Log("Checking For item, " + itemToCheck.item.itemName + " With amount of: " + itemToCheck.amount.ToString());
+            yield return new WaitForSeconds(0.1f);
+            for (int i = 0; i < Inventory.instance.itemSlots.Count; i++)
+            {
+                /*if(Inventory.instance.amounts.Contains(itemToCheck.amount)){
+                    if(Inventory.instance.items.Contains(itemToCheck.item)){
+                        Debug.Log("should craft item");
+                    }
+                }*/
             }
         }
     }
 
-    public IEnumerator CheckIfInventoryHasItem(ItemObject itemToCheck, int itemAmount, int currentBool)
+/* public void CraftRecipe()
     {
-        Debug.Log("Checking For item, " + itemToCheck.itemName + " With amount of: " + itemAmount.ToString());
-        yield return new WaitForSeconds(0.1f);
-        int itemsChecked = 0;
-        for (int i = 0; i < Inventory.instance.itemSlots.Count; i++)
+        for (int i = 0; i < selectedRecipe.itemsRequired.Count; i++)
         {
-            if(Inventory.instance.itemSlots[i].slotItem.item == itemToCheck && Inventory.instance.itemSlots[i].slotItem.amount >= itemAmount){
-                hasItems[currentBool] = true;
-            }else{
-                itemsChecked++;
-            }
-            if(itemsChecked == Inventory.instance.itemSlots.Count){
-                hasItems[currentBool] = false;
-                Debug.Log("Inventory doesnt have item: " + itemToCheck.itemName + " of amount: " + itemAmount.ToString());
-            }
+            CheckIfInventoryHasItem(selectedRecipe.itemsRequired[i]);
         }
     }
-}
+
+    public IEnumerator CheckIfInventoryHasItem(Item itemToCheck)
+    {
+        Debug.Log("Checking For item, " + itemToCheck.item.itemName + " With amount of: " + itemToCheck.amount.ToString());
+        yield return new WaitForSeconds(0.1f);
+        for (int i = 0; i < Inventory.instance.itemSlots.Count; i++)
+        {
+            if(Inventory.instance.amounts.Contains(itemToCheck.amount)){
+                if(Inventory.instance.items.Contains(itemToCheck.item)){
+                    Debug.Log("should craft item");
+                }
+            }
+        }
+    }*/

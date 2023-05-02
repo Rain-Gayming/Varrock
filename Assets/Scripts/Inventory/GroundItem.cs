@@ -13,6 +13,6 @@ public class GroundItem : MonoBehaviour
         }
     }
     private void OnMouseDown() {
-        Inventory.instance.CheckIfCanAddItem(gameObject, item);
+        Inventory.instance.CheckIfCanAddItem(gameObject, item, true);
     }
 }

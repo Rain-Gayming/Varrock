@@ -7,9 +7,6 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
     public bool paused;
     public bool inGame;
-    [Header("Character")]
-    public Material skinColourMat;
-    public Material hairColourMat;
     public CharacterData characterData;
 
     [Header("Camera")]
@@ -33,10 +30,6 @@ public class PlayerManager : MonoBehaviour
             }
         }else{
             playerCamera.SetActive(false);
-        }
-        if(characterData != null){
-            //skinColourMat.color = characterData.hairColour;
-            //hairColourMat.color = characterData.skinColour;
         }
     }
 }

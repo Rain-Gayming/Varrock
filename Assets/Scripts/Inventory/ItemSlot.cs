@@ -8,7 +8,6 @@ using TMPro;
 public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Item slotItem;
-    public Item preItem;
     public bool hovered;
 
     [Header("Item Specific")]
@@ -39,6 +38,9 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }else{
                 amountText.gameObject.SetActive(false);
             }
+            if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftShift) && hovered){
+                EquipmentManager.instance.EquipItem(this, slotItem);
+            }
         }else if(slotItem.item == null){
             itemIcon.gameObject.SetActive(false);
             amountText.gameObject.SetActive(false);
@@ -46,10 +48,10 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if(hovered){
             DragItem.instance.hoverSlot = this;
             
-            if(DragItem.instance.fromSlot == null && InputManager.instance.leftMouse){
+            if(DragItem.instance.fromSlot == null && InputManager.instance.leftMouse && !Input.GetKey(KeyCode.LeftShift)){
                 DragItem.instance.fromSlot = this;
                 InputManager.instance.leftMouse = false;
-            }else if(DragItem.instance.fromSlot != null && InputManager.instance.leftMouse){
+            }else if(DragItem.instance.fromSlot != null && InputManager.instance.leftMouse && !Input.GetKey(KeyCode.LeftShift)){
                 DragItem.instance.SwapItems();
                 InputManager.instance.leftMouse = false;
             }

@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
+    public int gold;
 
     [Header("UI")]
     public List<ItemSlot> itemSlots;
+    public List<ItemObject> items;
+    //public List<int> amounts;
     public GameObject inventoryCanvas;
     public GameObject gameCanvas;
+    public TMP_Text goldText;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +25,7 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        goldText.text = gold.ToString();
         if(InputManager.instance.inventory){
             InputManager.instance.inventory = false;
             gameCanvas.SetActive(!gameCanvas.activeInHierarchy);
@@ -28,20 +34,25 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void CheckIfCanAddItem(GameObject objectFrom, Item itemToCheck)
+    public void CheckIfCanAddItem(GameObject objectFrom, Item itemToCheck, bool destroy)
     {
         int itemsCounted = 0;
         for (int i = 0; i < itemSlots.Count; i++)
         {
             if(itemSlots[i].slotItem.item == itemToCheck.item && itemToCheck.item.stacks){
                 itemSlots[i].slotItem.amount += itemToCheck.amount;
-                Destroy(objectFrom);
+                //amounts[i] += itemToCheck.amount;
+                if(destroy)
+                    Destroy(objectFrom);
                 return;
             }
             else if(itemSlots[i].slotItem.item == null)
             {
                 itemSlots[i].slotItem = itemToCheck;
-                Destroy(objectFrom);
+                //amounts.Add(itemToCheck.amount);
+                items.Add(itemToCheck.item);
+                if(destroy)
+                    Destroy(objectFrom);
                 return;
             }
             if(itemsCounted >= itemSlots.Count){
@@ -57,11 +68,14 @@ public class Inventory : MonoBehaviour
         {
             if(itemSlots[i].slotItem.item == itemToCheck.item && itemToCheck.item.stacks){
                 itemSlots[i].slotItem.amount += itemToCheck.amount;
+                //amounts[i] += itemToCheck.amount;
                 return;
             }
             else if(itemSlots[i].slotItem.item == null)
             {
                 itemSlots[i].slotItem = itemToCheck;
+                //amounts.Add(itemToCheck.amount);
+                items.Add(itemToCheck.item);
                 return;
             }
             if(itemsCounted >= itemSlots.Count){

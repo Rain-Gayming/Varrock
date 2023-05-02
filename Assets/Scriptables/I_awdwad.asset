@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f300fec95b03e649a63476930d81bd8, type: 3}
+  m_Name: I_awdwad
+  m_EditorClassIdentifier: 
+  itemType: 0
+  itemName: wafawd
+  itemDescription: '<color=yellow>Type: misc</color>
+
+
+    <color=green>Buy Price:
+    0</green>
+
+    <color=red>Sell Price: 0</color>'
+  itemIcon: {fileID: 0}
+  stacks: 0
+  sellPrice: 0
+  buyPrice: 0

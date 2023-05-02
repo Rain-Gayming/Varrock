@@ -6,11 +6,13 @@ public enum EItemType
 {
     misc,
     head,
-    chest,
-    leg,
+    chestplate,
+    hands,
+    leggings,
     boots,
     ring,
-    cloak,
+    backs,
     necklace,
-    weapon
+    weapon,
+    accessory
 }

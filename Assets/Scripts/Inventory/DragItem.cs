@@ -8,6 +8,7 @@ public class DragItem : MonoBehaviour
     public static DragItem instance;
     public ItemSlot fromSlot;
     public ItemSlot hoverSlot;
+    public ShopSlot shopSlot;
     public Trash trashSlot;
     public Image dragIcon;
     // Start is called before the first frame update
@@ -30,6 +31,12 @@ public class DragItem : MonoBehaviour
     public void SwapItems()
     {
         if(trashSlot){
+            fromSlot.slotItem = new Item();
+
+            fromSlot = null;
+            hoverSlot = null;
+        }else if(shopSlot){
+            Inventory.instance.gold += fromSlot.slotItem.item.sellPrice;
             fromSlot.slotItem = new Item();
 
             fromSlot = null;
