@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 
 [CreateAssetMenu(menuName = "Item", fileName = "Item_")]
@@ -44,4 +45,12 @@ public class ItemObject : ScriptableObject
 
         itemInfo = "<color=yellow>Type: " + itemType.ToString() + "</color>" + "\n" +  "\n" + "<color=green>Buy Price: " + buyPrice.ToString() + "</color>"  + "\n" +  "<color=red>Sell Price: " + sellPrice.ToString() + "</color>";
     }
+    public List<ItemInteraction> itemInteractions;
+}
+
+[System.Serializable]
+public class ItemInteraction
+{
+    public ItemObject interactWith;
+    public ItemObject itemResult;    
 }

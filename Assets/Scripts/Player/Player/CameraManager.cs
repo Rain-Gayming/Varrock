@@ -23,7 +23,7 @@ public class CameraManager : MonoBehaviour
         if(Input.GetAxis("Mouse ScrollWheel") != 0){
             float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
             cam.orthographicSize -= scrollDelta * Time.deltaTime * scrollSpeed;
-            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, 0.5f, 10);
+            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, 3f, 10);
         }
     }
 }

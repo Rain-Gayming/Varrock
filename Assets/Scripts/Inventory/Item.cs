@@ -8,4 +8,10 @@ public class Item
 {
     public ItemObject item;
     public int amount;
+
+    public Item(ItemObject i, int a)
+    {
+        item = i;
+        amount = a;
+    }
 }

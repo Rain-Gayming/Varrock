@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 using TMPro;
 
 public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
     public int gold;
-
-    [Header("UI")]
+    [BoxGroup("UI")]
     public List<ItemSlot> itemSlots;
+    [BoxGroup("UI")]
     public List<ItemObject> items;
     //public List<int> amounts;
+    [BoxGroup("UI")]
     public GameObject inventoryCanvas;
+    [BoxGroup("UI")]
     public GameObject gameCanvas;
-    public TMP_Text goldText;
+    [BoxGroup("UI")]
+    public ItemSlot hoveredSlot;
+    [BoxGroup("UI")]
+    public ItemSlot selectedSlot;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +31,6 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        goldText.text = gold.ToString();
         if(InputManager.instance.inventory){
             InputManager.instance.inventory = false;
             gameCanvas.SetActive(!gameCanvas.activeInHierarchy);
@@ -81,6 +86,25 @@ public class Inventory : MonoBehaviour
             if(itemsCounted >= itemSlots.Count){
                 return;
             }
+        }
+    }
+
+    public void UseItemsOnEachOther()
+    {
+        if(selectedSlot.slotItem.item != null && hoveredSlot.slotItem.item != null){
+
+            for (int i = 0; i < selectedSlot.slotItem.item.itemInteractions.Count; i++)
+            {
+                if(selectedSlot.slotItem.item.itemInteractions[i].interactWith == hoveredSlot.slotItem.item){
+                    selectedSlot.slotItem.amount--;
+                    hoveredSlot.slotItem.amount--;
+                    CheckIfCanAddItem(new Item(selectedSlot.slotItem.item.itemInteractions[i].itemResult, 1));
+                    selectedSlot = null;
+                    return;
+                }
+            }
+        }else{
+            selectedSlot = null;
         }
     }
 }

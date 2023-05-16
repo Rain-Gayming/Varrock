@@ -31,13 +31,13 @@ public class DragItem : MonoBehaviour
     public void SwapItems()
     {
         if(trashSlot){
-            fromSlot.slotItem = new Item();
+            fromSlot.slotItem = new Item(null, 0);
 
             fromSlot = null;
             hoverSlot = null;
         }else if(shopSlot){
             Inventory.instance.gold += fromSlot.slotItem.item.sellPrice;
-            fromSlot.slotItem = new Item();
+            fromSlot.slotItem = new Item(null, 0);
 
             fromSlot = null;
             hoverSlot = null;
@@ -52,7 +52,7 @@ public class DragItem : MonoBehaviour
                     hoverSlot = null;
                 }else{
                     hoverSlot.slotItem.amount += fromSlot.slotItem.amount;
-                    fromSlot.slotItem =  new Item();
+                    fromSlot.slotItem =  new Item(null, 0);
                     fromSlot = null;
                     hoverSlot = null;
                 }

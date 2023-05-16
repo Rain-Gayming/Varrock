@@ -8,6 +8,14 @@ public class Menu : MonoBehaviour
     public bool open;
     public GameObject reference;
 
+    public bool isDefault;
+    private void Start() {
+        if(isDefault)
+        {
+            open = true;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {

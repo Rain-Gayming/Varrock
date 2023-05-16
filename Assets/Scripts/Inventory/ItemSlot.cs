@@ -4,30 +4,45 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using Sirenix.OdinInspector;
 
 public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public Inventory inventory;
     public Item slotItem;
-    public bool hovered;
 
-    [Header("Item Specific")]
+    [BoxGroup("Specific Items")]
     public bool anyItem;
+    [BoxGroup("Specific Items")]
     public EItemType itemType;
 
-    [Header("Display Info")]
+    [BoxGroup("Display")]
     public Image hoverImage;
+    [BoxGroup("Display")]
     public TMP_Text amountText;
+    [BoxGroup("Display")]
     public Image itemIcon;
+
+    [BoxGroup("Dragging")]
+    public float mouseDragTime = 0.1f;
+    [BoxGroup("Dragging")]
+    public DragItem dragItem;
+    [BoxGroup("Dragging")]
+    public bool hovered;
+    float mouseDragTimer;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        inventory = GetComponentInParent<Inventory>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(slotItem.amount <= 0){
+            slotItem = new Item(null, 0);
+        }
         hoverImage.gameObject.SetActive(hovered);
         if(slotItem.item){
             itemIcon.gameObject.SetActive(true);
@@ -46,18 +61,37 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             amountText.gameObject.SetActive(false);
         }
         if(hovered){
-            DragItem.instance.hoverSlot = this;
+            dragItem.hoverSlot = this;
+            if(slotItem.item != null && dragItem.fromSlot == null)
+                inventory.hoveredSlot = this;
             
-            if(DragItem.instance.fromSlot == null && InputManager.instance.leftMouse && !Input.GetKey(KeyCode.LeftShift)){
-                DragItem.instance.fromSlot = this;
-                InputManager.instance.leftMouse = false;
-            }else if(DragItem.instance.fromSlot != null && InputManager.instance.leftMouse && !Input.GetKey(KeyCode.LeftShift)){
-                DragItem.instance.SwapItems();
-                InputManager.instance.leftMouse = false;
+            if(Input.GetMouseButton(0))
+            {
+                mouseDragTimer += Time.deltaTime;
+
+                //if the mouse has been held for longer than minimum time then it drags it, else it selects it
+                if(mouseDragTimer > mouseDragTime){
+                    if(dragItem.fromSlot == null && !Input.GetKey(KeyCode.LeftShift)){
+                        dragItem.fromSlot = this;
+                        mouseDragTimer = 0;
+                    }
+                }                
+            }else{
+                mouseDragTimer = 0;
+            }
+            if(Input.GetMouseButtonDown(0)){  
+                if(inventory.selectedSlot){
+                    inventory.UseItemsOnEachOther();
+                }else{
+                    inventory.selectedSlot = this;
+                }       
+            }
+            if(dragItem.fromSlot != null && !InputManager.instance.leftMouse && !Input.GetKey(KeyCode.LeftShift)){
+                dragItem.SwapItems();
+                //mouseDragTimer = 0;
             }
         }
     }
-    
     public void OnPointerEnter(PointerEventData eventData)
     {
         hovered = true;

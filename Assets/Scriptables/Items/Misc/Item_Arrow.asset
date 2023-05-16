@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268e817d5f6c5e34194cdea586674618, type: 3}
+  m_Name: Item_Arrow
+  m_EditorClassIdentifier: 
+  itemType: 10
+  itemName: Arrow
+  itemInfo: '<color=yellow>Type: misc</color>
+
+
+    <color=green>Buy Price: 0</color>
+
+    <color=red>Sell
+    Price: 0</color>'
+  itemDescription: 
+  itemIcon: {fileID: 21300000, guid: daf2ab606d4db0d4f9ecf4c02137d2a8, type: 3}
+  stacks: 1
+  sellPrice: 0
+  buyPrice: 0
+  itemInteractions:
+  - interactWith: {fileID: 11400000, guid: 2f9bd250e0c258d4091e28fc08c6acab, type: 2}
+    itemResult: {fileID: 11400000, guid: 8c47b3064f665a446b7ede33a7fe0554, type: 2}
